@@ -1,0 +1,131 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <title>Team v. Receiver EPA - Macsen Higgins</title>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+        <link rel="stylesheet" href="assets/css/main.css" />
+    </head>
+    <body class="is-preload">
+
+        <section id="header">
+                <header>
+                    <span class="image avatar"><img src="images/avatar.jpg" alt="" /></span>
+                    <h1 id="logo"><a href="index.html">Macsen Higgins</a></h1>
+                    <p>Data Projects Portfolio</p>
+                </header>
+                <nav id="nav">
+                    <ul>
+                        <li><a href="index.html">← Back to Home</a></li>
+                        <li><a href="#intro" class="active">Introduction</a></li>
+                        <li><a href="#methodology">Methodology</a></li>
+                        <li><a href="#results">Results & Analysis</a></li>
+                        <li><a href="#code">Code Snippet</a></li>
+                    </ul>
+                </nav>
+            </section>
+
+        <div id="wrapper">
+
+                <div id="main">
+
+                        <section id="intro">
+                                <div class="container">
+                                    <header class="major">
+                                        <h2>Showcasing NFL Receiver Efficiency Within a Team Context</h2>
+                                        <p>A tool for creating interactive charts to add context to the strengths and weaknesses of an NFL passing offense.</p>
+                                    </header>
+                                    <span class="image fit"><img src="images/teamreceiverepathumbnail.jpg" alt="NFL Analytics Banner" /></span>
+                                    <p>The production of NFL pass catchers relies heavily on their surrounding offensive environment. The success of a wide receiver, tight end, or running back
+                                         in the passing game is heavily dependent on their quarterback's ability to get them the ball, so it would be unfair to judge them against each other without
+                                         considering the circumstances they play in. The goal of this project is to recontextualize individual performance for pass catchers to identify league-wide patterns in efficiency
+                                        in addition to specific players who stand out amongst their teammates, for reasons good or bad.</em></p>
+                                </div>
+                            </section>
+
+                        <section id="methodology">
+                                <div class="container">
+                                    <h3>Methodology</h3>
+                                    <p>Receiving efficiency was measured via Expected Points Added (EPA) per target. EPA is the difference in a team's expected points (EP) scored 
+                                        on single drive after a play vs. before a play. Down (e.g. 1st, 2nd, etc.) and distance (e.g. 10 yards to go) are the two key factors that decide
+                                        a team's EP before each play, so picking up yardage in a manner that advances your team towards scoring is the key to high-EPA plays.
+                                        I calculated the average passing EPA for all 32 NFL teams as well as the average EPA when targeted for all pass-catchers who were targeted on more than 
+                                        10% of their team's passing plays to create the dataset used in my plot. The minimum target share can be modified to increase or decrease the amount of data on display
+                                        for future use, but a value of 0.1 appeared best for a sample spanning one season, as it generally displayed the top 2-4 pass-catchers on each team. </p>
+                                    <ul class="alt">
+                                        <li><strong>Data Source:</strong> nflfastR package (2025 regular season data).</li>
+                                        <li><strong>Tools:</strong> dplyr for data processing, ggplot2 and Plotly for visuals.</li>
+                                    </ul>
+                                </div>
+                            </section>
+
+                        <section id="results">
+                                <div class="container">
+                                    <h3>Results and Analysis</h3>
+                                    <p>Below is an interactive graph for all pass-catchers with a 10% target share or better for the 2025 NFL regular seasonn plotted by 
+                                        team passing efficiency and individual efficiency. 
+                                    </p>
+                                    
+                                    <div class="box alt">
+                                        <div class="row gtr-50 gtr-uniform">
+                                            <div class="col-12">
+                                                <div class="interactive-plot">
+                                                    <iframe 
+                                                        src="assets/teamvsreceiverepa2025.html" 
+                                                        width="100%" 
+                                                        height="600px" 
+                                                        style="border: 3px solid black;" 
+                                                        scrolling="no">
+                                                    </iframe>
+                                                </div>
+                                                <p><em>Figure 1: Individual vs. Team Passing Efficiency. (Hover for details)</em></p>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <p>Since each player's efficiency factors into their team's overall efficiency, it is no surprise that there is a clear positive correlation
+                                        between individual and team performance. However, the most interesting details come from the discrepancies in efficiency among teammates.
+                                        There is a general trend in efficiency based on position played. Running backs are generally less efficient in the passing game than
+                                        tight ends, with wide receivers generally falling in between the two. Of course, there are some exceptions to this trend. For example, Bijan Robinson and Breece Hall,
+                                        two RBs who are exceptional in the passing game, were the only qualified players at their position to lead their team in receiving efficiency.
+                                        Another oddity appears when examining the Minnesota Vikings' pass-catchers. The team struggled to pass the ball mightily in 2025 with inconsistent quarterback play,
+                                        but it is nonetheless shocking to see Justin Jefferson, a consensus top wide receiver, boasting an EPA/target of -0.10, the lowest on his team.
+                                        Perhaps there were mentality or chemistry issues involved that hindered Jefferson's production in 2025, but it is certainly concerning for Vikings fans heading into next season.
+                                    </p>
+
+                                    <p>Although this project was quite simple in scope, I thoroughly enjoyed making it and have found value in the insights it offers for both retrospective and current analysis.</p>
+                                </div>
+                            </section>
+
+                        <section id="code">
+                                <div class="container">
+                                    <h3>The Code</h3>
+                                    <p>If you would like to learn more about this project, you may view and download the code for yourself using the button below. Thanks for reading!</p>
+                                    <ul class="actions">
+                                        <li><a href="https://github.com/yourusername/repo" class="button icon brands fa-github">View Full Repo on GitHub</a></li>
+                                    </ul>
+                                </div>
+                            </section>
+
+                    </div>
+
+                <section id="footer">
+                        <div class="container">
+                            <ul class="copyright">
+                                <li>&copy; Macsen Higgins. All rights reserved.</li><li>Design: <a href="http://html5up.net">HTML5 UP</a></li>
+                            </ul>
+                        </div>
+                    </section>
+
+            </div>
+
+        <script src="assets/js/jquery.min.js"></script>
+            <script src="assets/js/jquery.scrollex.min.js"></script>
+            <script src="assets/js/jquery.scrolly.min.js"></script>
+            <script src="assets/js/browser.min.js"></script>
+            <script src="assets/js/breakpoints.min.js"></script>
+            <script src="assets/js/util.js"></script>
+            <script src="assets/js/main.js"></script>
+
+    </body>
+</html>
