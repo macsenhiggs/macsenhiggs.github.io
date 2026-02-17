@@ -20,6 +20,7 @@
                         <li><a href="#intro" class="active">Introduction</a></li>
                         <li><a href="#methodology">Methodology</a></li>
                         <li><a href="#results">Results & Analysis</a></li>
+                        <li><a href="#future">Future Improvements</a></li>
                         <li><a href="#code">Code Snippet</a></li>
                     </ul>
                 </nav>
@@ -37,7 +38,10 @@
                                     </header>
                                     <span class="image fit"><img src="images/qbepaprogressionthumbnail.jpg" alt="NFL Analytics Banner" /></span>
                                     <p>In a sport that experiences extreme variance on a year-over-year and game-over game basis such as football, normalization of performance can be extremely valuable.
-                                        
+                                        As such, the goal of this project is to provide stability in the statistical evaluation of NFL quarterbacks in a manner that accounts for past performance while giving
+                                        more weight to recent improvements or struggles. Analysts in NBA circles have been searching for a solution to a similar question regarding night-to-night performance prediction for years,
+                                        and have found an answer in a metric known as DARKO DPM, a machine learning-driven prediction model that utilizes expoential decay and Kalman filters to weigh history against the present in player evaluation.
+                                        I developed a similar (although simpler for now) model in the same philosophy of DARKO DPM for quarterback play.
                                     </em></p>
                                 </div>
                             </section>
@@ -45,7 +49,50 @@
                         <section id="methodology">
                                 <div class="container">
                                     <h3>Methodology</h3>
-                                    <p>Text</p>
+                                    <p>Using EPA/play on all plays including passes, rushes, and penalties for NFL quarterbacks as my measure of overall performance,
+                                        I developed an exponential smoothing model to weight each snap of a player's career at any given point.
+                                        The weight of each play is determined by the following formula:
+                                        <math xmlns="http://www.w3.org/1998/Math/MathML" display="block" mathsize="1.5em">
+                                        <msub>
+                                            <mi>w</mi>
+                                            <mi>i</mi>
+                                        </msub>
+                                        <mo>=</mo>
+                                        <msup>
+                                            <mrow>
+                                            <mo>(</mo>
+                                            <mn>1</mn>
+                                            <mo>&minus;</mo>
+                                            <mi>&alpha;</mi>
+                                            <mo>)</mo>
+                                            </mrow>
+                                            <mrow>
+                                            <mi>N</mi>
+                                            <mo>&minus;</mo>
+                                            <mi>i</mi>
+                                            </mrow>
+                                        </msup>
+                                        </math>
+                                    </p>
+                                    Where:
+                                    <ul>
+                                        <li>
+                                            <math xmlns="http://www.w3.org/1998/Math/MathML"><mi>&alpha;</mi></math> represents the rate of decay (constant at 0.01 in this experiment).
+                                        </li>
+                                        <li>
+                                            <math xmlns="http://www.w3.org/1998/Math/MathML"><mi>N</mi></math> represents the total number of plays in the sample.
+                                        </li>
+                                        <li>
+                                            <math xmlns="http://www.w3.org/1998/Math/MathML"><mi>i</mi></math> represents the index of the specific play being weighted.
+                                        </li>
+                                        <li>
+                                            <math xmlns="http://www.w3.org/1998/Math/MathML"><msub><mi>w</mi><mi>i</mi></msub></math> represents the calculated weight assigned to play <math xmlns="http://www.w3.org/1998/Math/MathML"><mi>i</mi></math>.
+                                        </li>
+                                    </ul>
+                                    Once the individual weights are calculated, the weighted average EPA/play for a player's career would simply be the weighted sum of the EPA of all plays
+                                    divided by the sum of all weight values. 
+                                    <br>If you want to learn more about DARKO DPM, you can read about it <a href="https://apanalytics.shinyapps.io/DARKO/" target="_blank">here</a>.
+                                    </p>
                                     <ul class="alt">
                                         <li><strong>Data Source:</strong> nflfastR package (2017-2025 postseason data).</li>
                                         <li><strong>Tools:</strong> dplyr for data processing, ggplot2 for visuals.</li>
@@ -56,38 +103,66 @@
                         <section id="results">
                                 <div class="container">
                                     <h3>Results and Analysis</h3>
-                                    <p>Below is an interactive graph for all pass-catchers with a 10% target share or better for the 2025 NFL regular seasonn plotted by 
-                                        team passing efficiency and individual efficiency. 
+                                    <p>To demonstrate this algorithm at work, let's compare the playoff careers of three star QBs: Josh Allen, Patrick Mahomes, and Lamar Jackson.
+                                        The stories of these players' postseason performance could not be less alike: Mahomes, with three super bowl rings to his name, has earned praise for his play in
+                                        January and February rivaled only by Tom Brady. Allen has played well in the playoffs, but has yet to appear in a single super bowl. Lastly, Jackson's
+                                        playoff career got off to a disastrous start that has since improved but remains underwhelming for a two-time MVP.
+                                    </p>
+
+                                    <p>Let's examine Allen's performance on its own. Each dot on the chart represents Allen's weighted average EPA/play after each play of his postseason
+                                        career. Since the sample size is small enough in the playoffs, individual games are separated via dashed lines, with each point colored to match the opposing
+                                        team. The first 10 plays are visually omitted from the graph to give the average a moment to normalize, but still factor into the calculations themselves.
                                     </p>
                                     
                                     <div class="box alt">
                                         <div class="row gtr-50 gtr-uniform">
                                             <div class="col-12">
-                                                <div class="interactive-plot">
-                                                    <iframe 
-                                                        src="assets/teamvsreceiverepa2025.html" 
-                                                        width="100%" 
-                                                        height="600px" 
-                                                        style="border: 3px solid black;" 
-                                                        scrolling="no">
-                                                    </iframe>
+                                                <div class="plot">
+                                                    <span class="image fit"><img src="images/allenepaprogressionpost.png" alt="Final 2025 QB Rankings" /></span>
                                                 </div>
-                                                <p><em>Figure 1: Individual vs. Team Passing Efficiency. (Hover for details)</em></p>
+                                                <p><em>Figure 1: Individual weighted career postseason EPA/play progression for Josh Allen with a LOESS curve applied</em></p>
                                             </div>
                                         </div>
                                     </div>
 
-                                    <p>Since each player's efficiency factors into their team's overall efficiency, it is no surprise that there is a clear positive correlation
-                                        between individual and team performance. However, the most interesting details come from the discrepancies in efficiency among teammates.
-                                        There is a general trend in efficiency based on position played. Running backs are generally less efficient in the passing game than
-                                        tight ends, with wide receivers generally falling in between the two. Of course, there are some exceptions to this trend. For example, Bijan Robinson and Breece Hall,
-                                        two RBs who are exceptional in the passing game, were the only qualified players at their position to lead their team in receiving efficiency.
-                                        Another oddity appears when examining the Minnesota Vikings' pass-catchers. The team struggled to pass the ball mightily in 2025 with inconsistent quarterback play,
-                                        but it is nonetheless shocking to see Justin Jefferson, a consensus top wide receiver, boasting an EPA/target of -0.10, the lowest on his team.
-                                        Perhaps there were mentality or chemistry issues involved that hindered Jefferson's production in 2025, but it is certainly concerning for Vikings fans heading into next season.
+                                    <p>The chart corroborates Allen's reputation as an exceptional playoff performer, highlighted by a 2021 playoff run where he contributed
+                                        a staggering 54.5 total points of EPA across two games. Despite a disappointing exit in the second round of the 2025 postseason, Allen's
+                                        weighted average EPA/play of over 0.2 stands as an all-time metric.
                                     </p>
 
-                                    <p>Although this project was quite simple in scope, I thoroughly enjoyed making it and have found value in the insights it offers for both retrospective and current analysis.</p>
+                                    <p>
+                                        By exporting the LOESS curve from the individual charts of our three QBs and placing them on the same plane, we can evaluate the progression of their playoff
+                                        careers side-by-side. 
+                                    </p>
+
+                                    <div class="box alt">
+                                        <div class="row gtr-50 gtr-uniform">
+                                            <div class="col-12">
+                                                <div class="plot">
+                                                    <span class="image fit"><img src="images/mahomesallenjackson.png" alt="Final 2025 QB Rankings" /></span>
+                                                </div>
+                                                <p><em>Figure 2: Smoothed curves of weighted career postseason EPA/play progression for Josh Allen, Patrick Mahomes, and Lamar Jackson</em></p>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <p>
+                                        The discrepancy in experience quickly presents itself here, with Jackson's sample size being about half of that of his peers.
+                                        Regardless, the visualization of the data makes it easy to view these men's playoff careers through a wholistic lens.
+                                        After a horrendous postseason debut, Jackson has steadily improved, although his peak weighted average remains below both his peers at any equal point in their respective careers.
+                                        Mahomes's weighted average has taken a nosedive following a rough outing in his Super Bowl LIX defeat at the hands of the Philadelphia Eagles.
+                                    </p>
+                                </div>
+                            </section>
+
+                            <section id="future"> 
+                                <div class="container">
+                                    <h3>Future Improvements</h3>
+                                    <p>
+                                        Although an alpha value of 0.01 provides a good balance for the example discussed in this article, I would like to develop a formulaic approach to
+                                        alpha determination in future iterations of this project. A larger sample size, such as a regular season career for a 10-year veteran, would require a smaller
+                                        alpha value or else plays older than a couple seasons would hold practically no weight in their evaluation. I plan to revisit this project soon to do exactly that.
+                                    </p>
                                 </div>
                             </section>
 
