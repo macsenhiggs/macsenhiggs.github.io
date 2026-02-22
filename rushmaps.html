@@ -1,0 +1,146 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <title>Team v. Receiver EPA - Macsen Higgins</title>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+        <link rel="stylesheet" href="assets/css/main.css" />
+    </head>
+    <body class="is-preload">
+
+        <section id="header">
+                <header>
+                    <span class="image avatar"><img src="images/avatar.jpg" alt="" /></span>
+                    <h1 id="logo"><a href="index.html">Macsen Higgins</a></h1>
+                    <p>Data Projects Portfolio</p>
+                </header>
+                <nav id="nav">
+                    <ul>
+                        <li><a href="index.html">← Back to Home</a></li>
+                        <li><a href="#intro" class="active">Introduction</a></li>
+                        <li><a href="#methodology">Methodology</a></li>
+                        <li><a href="#results">Results & Analysis</a></li>
+                        <li><a href="#code">The Code</a></li>
+                    </ul>
+                </nav>
+            </section>
+
+        <div id="wrapper">
+
+                <div id="main">
+
+                        <section id="intro">
+                                <div class="container">
+                                    <header class="major">
+                                        <h2>Visualizing Rushing Offense Through Run Gap and Location Data</h2>
+                                        <p>Bringing new perspective to rushing success rate with isomorphic data modeling</p>
+                                    </header>
+                                    <span class="image fit"><img src="images/NFLRushMap.png" alt="NFL Analytics Banner" /></span>
+                                    <p>Intro!</em></p>
+                                </div>
+                            </section>
+
+                        <section id="methodology">
+                                <div class="container">
+                                    <h3>Methodology</h3>
+                                    <p>
+                                        For all designed runs in the modern NFL, the rush gap and location utilized by the ball carrier is denoted in the play-by-play data record.
+                                        The rush location signifies the direction of the field the ball carrier ran towards after receiving the handoff (left, right, or middle).
+                                        The rush gap signifies the the direction the ball carrier ran in relative to the holes created by their offensive line. "End" rushes occur when
+                                        the carrier goes around the outside of their tackle (the outermost bookends of an offensive line), "tackle" rushes exist in the gaps created between a tackle and a guard
+                                        (the player between a tackle and the center), "guard" rushes exist in the gaps created between a guard and the center, and some rushes have gap
+                                        denoted as NA which exclusively applies to rush directly up the middle of the field.
+                                    </p>
+                                    <p>
+                                        By creating a new variable <code>run-location-gap</code> as the pasted value of run gap and location and ordering relative to real-life position, we can divide
+                                        rush attempts by the path taken by the running back and analyze performance along those lines. Although any variety of performance metrics could be collected and grouped by location and gap,
+                                        I chose to measure by success rate, a metric that indicates the proportion of plays in a sample that bring the offense closer to scoring than they were before the play began, for the sake of
+                                        this exercise due to its stability. Other meaningful statistics that would have been adequate are EPA/rush, first downs/rush, and yards/rush.
+                                    </p>
+
+                                    <p>
+                                        The beauty of this project lies in the visualization, where I attempted to make the graph as isomorphic as possible to be used as an easy tool for understanding where
+                                        a player or team is succeeding or struggling to run the football. Each arrow denotes a possible path for the rusher to take, and the endpoint of the arrow indicates the success rate for that gap and location,
+                                        mirroring the "yardage" gained or lost by a ball carrier on a given play. Surrounding the paths is a mockup of an offensive line listed by position for physical reference. The thickness of each arrow is plotted relative to sample size,
+                                        which shows the frequency at which players/teams target each possible path. The final visual added to the graph is a dashed baseline, set to a success rate of 0.40 (the rounded league average on designed rushes) for this implementation.
+                                    </p>
+                                    <ul class="alt">
+                                        <li><strong>Data Source:</strong> nflfastR package (2025 regular season data).</li>
+                                        <li><strong>Tools:</strong> dplyr for data processing, ggplot2 and nflplotR for visuals.</li>
+                                    </ul>
+                                </div>
+                            </section>
+
+                        <section id="results">
+                                <div class="container">
+                                    <h3>Results and Analysis</h3>
+                                    <p>To see this visualization at work, I have created a chart for all 32 NFL teams' rushing success by gap and location for the 2025 season, seen below.
+                                    </p>
+                                    
+                                
+                                <div class="box alt">
+                                    <div class="row gtr-50 gtr-uniform">
+                                        <div class="col-12">
+                                            <div class="plot">
+                                                <span class="image fit"><img src="images/RushMaps2025.png" alt="Final 2025 QB Rankings" /></span>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+                                    A couple takeaways that present themselves from these charts:
+                                    <ul>
+                                        <li>
+                                            <strong>The Chicago Bears' rushing attack came alive under Ben Johnson, especially behind Right Tackle Darnell Wright. </strong> <br>
+                                            Chicago boasted a success rate greater than 50% in three categories, two of which were heavily influenced by Wright's ability to push defenders downfield.
+                                            Rookie head coach Ben Johnson was hailed as an expert in running the football during his time with the Detroit Lions, and after his first year things seem
+                                            to be clicking quickly for the team's rushing offense.
+                                        </li>
+                                        <li>
+                                            <strong>It takes more than just a talented RB to run the ball well, especially up the middle. </strong> <br>
+                                            After selecting Heisman Trophy finalist Ashton Jeanty sixth overall in the 2025 draft, the Las Vegas Raiders' rushing attack was abysmal,
+                                            with a league-worst success rate on runs up the middle of 23.6%. The explosive back made up for the disappointment on the outside, but improvements
+                                            will certainly need to be made to the team's interior offensive line heading into 2026 in order for some positive regression to emerge.
+                                        </li>
+                                    </ul>
+
+                                    <p>
+                                        There are many more applications for this tool that I could write analyses of as well. For instance, we can isolate by the player rather than the team to see how backs in the same situation compare.
+                                        Furthermore, we can analyze year-over-year regression on the same team to understand how they improved or deteriorated over time. Alternative implementations such as these can be found in the 
+                                        source code for this project.
+                                    </p>
+                                </div>
+                            </section>
+
+                        <section id="code">
+                                <div class="container">
+                                    <h3>The Code</h3>
+                                    <p>If you would like to learn more about this project, you may view and download the code for yourself using the button below. Thanks for reading!</p>
+                                    <ul class="actions">
+                                        <li><a href="https://github.com/macsenhiggs/RushMaps" class="button icon brands fa-github">View Full Repo on GitHub</a></li>
+                                    </ul>
+                                </div>
+                            </section>
+
+                    </div>
+
+                <section id="footer">
+                        <div class="container">
+                            <ul class="copyright">
+                                <li>&copy; Macsen Higgins. All rights reserved.</li><li>Design: <a href="http://html5up.net">HTML5 UP</a></li>
+                            </ul>
+                        </div>
+                    </section>
+
+            </div>
+
+        <script src="assets/js/jquery.min.js"></script>
+            <script src="assets/js/jquery.scrollex.min.js"></script>
+            <script src="assets/js/jquery.scrolly.min.js"></script>
+            <script src="assets/js/browser.min.js"></script>
+            <script src="assets/js/breakpoints.min.js"></script>
+            <script src="assets/js/util.js"></script>
+            <script src="assets/js/main.js"></script>
+
+    </body>
+</html>
