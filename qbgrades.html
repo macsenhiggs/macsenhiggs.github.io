@@ -65,8 +65,15 @@
                         <section id="posterboard">
                                 <div class="container">
                                     <h3>Poster Board</h3>
-                                    <p>Below is the poster board I presented at KSU Analytics Day in November 2025.</p>
-                                    <div class="image fit"><img src="images/MHiggins-QB-Poster_trimmed.png" alt="NFL Analytics Banner" /></span>
+                                    <p>Below is the poster board I presented at KSU Analytics Day in November 2025 as an honors contract affilated with my studies in DATA 3010: Computer Applications of Statistics.</p>
+                                    <div class="image fit" style="height: 65vh; margin-bottom: 2em;">
+                                        <object data="/assets/MHiggins-QB-Poster_trimmed.pdf" type="application/pdf" width="100%" height="100%">
+                                        <iframe src="/assets/MHiggins-QB-Poster_trimmed.pdf" width="100%" height="100%" style="border: none;">
+                                            This browser does not support PDFs. Please download the PDF to view it: 
+                                            <a href="/assets/MHiggins-QB-Poster_trimmed.pdf">Download PDF</a>
+                                        </iframe>
+                                        </object>
+                                    </span>
                                 </div>
                             </section>
 
@@ -76,8 +83,8 @@
                                     <p>Since presenting the project at Analytics Day, I have made some additional refinements
                                         to the grading model with the goal of maximizing fairness and eliminating uneven environmental factors.
                                         One such factor is the strength of the defenses that each QB faced. For the given testing window, all 32 defenses
-                                        were graded based on their percentile in our three notable statistical categories (EPA, SR, and CPOE). From there,
-                                        each QB was assigned a "Strength of Defense" (SoD) score based on the weighted average of the defenses they played combined with
+                                        were graded based on their percentile in our three notable statistical categories (EPA, SR, and CPOE)<sup><a href="nflstatsexplained.html" class="small-link">[What are these metrics?]</a></sup>.
+                                        From there, each QB was assigned a "Strength of Defense" (SoD) score based on the weighted average of the defenses they played combined with
                                         their number of plays against each team. Finally, a multiplier score for SoD is assigned based on a sigmoidal transformation of the QB's SoD normalized around 1.
                                     </p>
                                     <p>
@@ -85,12 +92,27 @@
                                         which I listed as an element of my original presentation that could have used some refining. Now, the value is normalized around a mean value of 0.5 as well,
                                         which gives it equal weight as the other criteria.
                                     </p>
-                                    
+
                                     <div class="box alt">
                                         Below are the final quarterback rankings for the 2025 NFL regular season, plotted by raw production, mean grade, and SoD.
                                         <div class="row gtr-50 gtr-uniform">
-                                            <div class="col-12"><span class="image fit"><img src="images/2025rankings.png" alt="Final 2025 QB Rankings" /></span></div>
+                                            <div class="col-12">
+                                                <div class="plot">
+                                                    <span class="image fit">
+                                                        <img class="clickable-image" src="images/2025rankings.png" alt="Figure 2: Final 2025 NFL QB rankings plotted by raw production and grading relative to production" />
+                                                    </span>
+                                                </div>
+                                                <p><em>Figure 2: Final 2025 NFL QB rankings plotted by raw production and grading relative to production <br>
+                                                    (Click to expand)</em></p>
+                                            </div>
                                         </div>
+                                    </div>
+
+                                    <div id="myModal" class="modal">
+                                        <span class="close">&times;</span>
+                                        <img class="modal-content" id="img01">
+                                        <div id="caption"></div>
+                                    </div>
 
                                         Here are some key takeaways I formulated from the information presented on this chart and how it related to evaluating NFL talent:
                                         <ul>
@@ -145,6 +167,7 @@
             <script src="assets/js/breakpoints.min.js"></script>
             <script src="assets/js/util.js"></script>
             <script src="assets/js/main.js"></script>
+            <script src="assets/js/lightbox.js"></script>
 
     </body>
 </html>
